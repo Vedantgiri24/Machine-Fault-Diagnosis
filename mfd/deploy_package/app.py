@@ -371,6 +371,21 @@ pre, code {
 
 
 # ══════════════════════════════════════════════════════════════
+#  VERSION-SAFE IMAGE HELPER
+#  Newer Streamlit versions use `use_container_width`; older
+#  versions only support `use_column_width`. This wrapper tries
+#  the modern kwarg first and falls back automatically so the
+#  app doesn't crash regardless of the Streamlit version that
+#  ends up installed on the deployment host.
+# ══════════════════════════════════════════════════════════════
+def show_image(data, caption=None):
+    try:
+        st.image(data, caption=caption, use_container_width=True)
+    except TypeError:
+        st.image(data, caption=caption, use_column_width=True)
+
+
+# ══════════════════════════════════════════════════════════════
 #  LOAD MODEL
 # ══════════════════════════════════════════════════════════════
 @st.cache_resource
@@ -553,10 +568,9 @@ else:
         <div class='card'>
             <div class='card-header'><span class='card-header-icon'>🖼️</span> Uploaded Vibration Signal</div>
         """, unsafe_allow_html=True)
-        st.image(
+        show_image(
             uploaded.getvalue(),
-            caption=f"{uploaded.name}  |  Resized to {IMG_W}×{IMG_H} for inference",
-            use_container_width=True
+            caption=f"{uploaded.name}  |  Resized to {IMG_W}×{IMG_H} for inference"
         )
         st.markdown("</div>", unsafe_allow_html=True)
 
