@@ -166,11 +166,11 @@ html, body, [class*="css"], .stApp {
     background: linear-gradient(135deg, #0F172A 0%, #1E3A5F 60%, #1D4ED8 100%);
     border: 1px solid #2563EB33;
     border-radius: 14px;
-    padding: 1.75rem 1.75rem;
+    padding: 1.75rem 1.75rem 2rem;
     margin-bottom: 1.25rem;
     display: flex; align-items: center; justify-content: space-between;
     box-shadow: 0 0 30px rgba(37,99,235,0.15);
-    gap: 1rem; position: relative; overflow: hidden;
+    gap: 1rem; position: relative; overflow: visible;
     color: white;
 }
 .topbar::before {
@@ -178,6 +178,8 @@ html, body, [class*="css"], .stApp {
     transform: translateY(-50%); font-size: 7rem; opacity: 0.06;
     line-height: 1; pointer-events: none;
     z-index: 0;
+    border-radius: 14px;
+    overflow: hidden;
 }
 .topbar-left, .topbar-right {
     position: relative;
@@ -378,9 +380,6 @@ pre, code {
 
 /* ══════════════════════════════════════════════════════════
    MOBILE RESPONSIVE FIXES
-   - topbar: stack title above badges instead of clipping
-   - fault grid: 5 cols -> 2 cols so cards don't get squeezed off-screen
-   - step grid: 3 cols -> 1 col so cards stack cleanly
    ══════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
     .main .block-container {
@@ -390,7 +389,7 @@ pre, code {
     .topbar {
         flex-direction: column;
         align-items: flex-start;
-        padding: 1.35rem 1.1rem;
+        padding: 1.35rem 1.1rem 1.75rem;
     }
     .topbar::before {
         font-size: 4.5rem;
@@ -408,16 +407,17 @@ pre, code {
     .status-divider { display: none; }
 
     .fault-grid-wrapper {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr) !important;
     }
+    .fault-grid-item {
+        padding: 0.9rem 0.6rem;
+    }
+    .fault-grid-icon-box {
+        width: 46px; height: 46px; font-size: 1.4rem;
+    }
+    .fault-grid-name { font-size: 0.73rem; }
 
     .step-grid-wrapper {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 420px) {
-    .fault-grid-wrapper {
         grid-template-columns: 1fr;
     }
 }
