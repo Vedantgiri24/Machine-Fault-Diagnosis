@@ -2,26 +2,15 @@ import streamlit as st
 import tensorflow as tf
 import numpy as np
 import time
+import os
 
 # ==========================================================
 #  PROJECT: Machine Fault Detection using CNN
 # ==========================================================
 
-PROJECT_INFO = {
-    "name"         : "Machine Fault Diagnosis Using Deep Learning Approach",
-    "version"      : "1.0.0",
-    "description"  : "Vibration signal image classification",
-    "classes"      : ["Bearing Fault","Bent Shaft","Foundation Looseness","Healthy","Misalignment"],
-    "channels"     : ["CH1", "CH2", "CH3"],
-    "img_size"     : (224, 224),
-    "num_classes"  : 5,
-    "framework"    : "TensorFlow / Keras",
-}
-
 # ══════════════════════════════════════════════════════════════
 #  CONFIG
 # ══════════════════════════════════════════════════════════════
-import os
 MODEL_PATH   = os.path.join(os.path.dirname(os.path.abspath(__file__)), "best_model.keras")
 IMG_H, IMG_W = 128, 256
 
@@ -131,28 +120,6 @@ html, body, [class*="css"], .stApp {
 }
 [data-testid="stSidebar"] > div:first-child { padding: 1.25rem 1rem !important; }
 
-[data-testid="stSidebar"] .stButton > button {
-    background: #1C2333 !important;
-    color: #94A3B8 !important;
-    border: 1px solid #21262D !important;
-    border-radius: 8px !important;
-    font-size: 0.82rem !important;
-    font-weight: 500 !important;
-    transition: all 0.15s ease !important;
-    text-align: left !important;
-}
-[data-testid="stSidebar"] .stButton > button:hover {
-    background: #1E3A5F !important;
-    color: #60A5FA !important;
-    border-color: #2563EB !important;
-}
-[data-testid="stSidebar"] .stButton > button[kind="primary"] {
-    background: #1E3A5F !important;
-    color: #60A5FA !important;
-    border-color: #2563EB !important;
-    font-weight: 600 !important;
-}
-
 .sb-logo {
     display: flex; align-items: center; gap: 10px;
     padding-bottom: 1.1rem;
@@ -186,40 +153,10 @@ html, body, [class*="css"], .stApp {
 .sb-fault-name { font-size: 0.79rem; font-weight: 600; color: #E2E8F0; line-height: 1.2; }
 .sb-fault-sev  { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.05em; }
 
-.sb-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 4px; }
-.sb-stat {
-    background: #1C2333; border: 1px solid #21262D;
-    border-radius: 8px; padding: 0.55rem 0.5rem; text-align: center;
-}
-.sb-stat-val { font-size: 1rem; font-weight: 700; color: #60A5FA; }
-.sb-stat-lbl { font-size: 0.62rem; color: #64748B; margin-top: 1px; }
-
 .sb-footer {
     margin-top: 1.25rem; padding-top: 0.85rem;
     border-top: 1px solid #21262D;
     font-size: 0.68rem; color: #4B5563; text-align: center; line-height: 1.7;
-}
-
-/* ══ NAV ROW (top of each page) ══ */
-div[data-testid="stButton"]:has(button[data-testid="topbar_about"]) button,
-div[data-testid="stButton"]:has(button[data-testid="back_to_diag"]) button {
-    background: #1E3A5F !important;
-    color: #60A5FA !important;
-    border: 1.5px solid #2563EB !important;
-    border-radius: 8px !important;
-    font-size: 0.76rem !important;
-    font-weight: 600 !important;
-    padding: 0.32rem 0.95rem !important;
-    height: 2.1rem !important;
-    white-space: nowrap !important;
-    transition: all 0.15s ease !important;
-    box-shadow: 0 0 10px rgba(37,99,235,0.2) !important;
-}
-div[data-testid="stButton"]:has(button[data-testid="topbar_about"]) button:hover,
-div[data-testid="stButton"]:has(button[data-testid="back_to_diag"]) button:hover {
-    background: #1D4ED8 !important;
-    color: #FFFFFF !important;
-    box-shadow: 0 0 16px rgba(37,99,235,0.45) !important;
 }
 
 /* ══ TOPBAR ══ */
@@ -400,96 +337,292 @@ div[data-testid="stButton"]:has(button[data-testid="back_to_diag"]) button:hover
 .step-title { font-size: 0.88rem; font-weight: 700; color: #F1F5F9; margin-bottom: 0.3rem; }
 .step-desc  { font-size: 0.76rem; color: #64748B; line-height: 1.55; }
 
-/* ══ ABOUT PAGE ══ */
-.about-hero {
-    background: linear-gradient(135deg, #0F172A 0%, #1E3A5F 60%, #1D4ED8 100%);
-    border-radius: 14px; padding: 2.25rem 2rem;
-    margin-bottom: 1.25rem; color: white;
-    position: relative; overflow: hidden;
-    border: 1px solid #2563EB33;
-    box-shadow: 0 0 30px rgba(37,99,235,0.15);
+/* ══ EXPANDER ══ */
+[data-testid="stExpander"] {
+    background: #161B22 !important;
+    border: 1px solid #21262D !important;
+    border-radius: 10px !important;
 }
-.about-hero::before {
-    content: '⚙'; position: absolute; right: 1.75rem; top: 50%;
-    transform: translateY(-50%); font-size: 7rem; opacity: 0.06; line-height: 1;
-}
-.about-hero h2 { font-size: 1.5rem; font-weight: 800; margin: 0 0 0.35rem; letter-spacing: -0.3px; }
-.about-hero p  { font-size: 0.875rem; opacity: 0.8; margin: 0; max-width: 580px; line-height: 1.65; }
-.about-hero-badges { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 1rem; }
-.about-hero-badge {
-    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 20px; padding: 0.22rem 0.8rem;
-    font-size: 0.7rem; font-weight: 600; color: rgba(255,255,255,0.9);
+[data-testid="stExpander"] summary { color: #64748B !important; font-size: 0.82rem !important; }
+pre, code {
+    font-family: 'JetBrains Mono', monospace !important;
+    background: #0D1117 !important; border-radius: 7px !important;
+    font-size: 0.78rem !important; color: #94A3B8 !important;
+    border: 1px solid #21262D !important;
 }
 
-/* ══ PROJECT INFO TABLE ══ */
-.proj-info-table { width: 100%; border-collapse: collapse; font-size: 0.845rem; }
-.proj-info-table tr { border-bottom: 1px solid #21262D; }
-.proj-info-table tr:last-child { border-bottom: none; }
-.proj-info-table td { padding: 0.65rem 0.5rem; vertical-align: top; line-height: 1.5; }
-.proj-info-table td:first-child { width: 36%; padding-right: 0.75rem; }
-.proj-info-table .td-label { display: flex; align-items: flex-start; gap: 7px; color: #64748B; font-weight: 500; }
-.proj-info-table .td-icon  { font-size: 0.85rem; margin-top: 1px; flex-shrink: 0; }
-.proj-info-table .td-key   { font-size: 0.8rem; font-weight: 600; color: #94A3B8; }
-.proj-info-table .td-val   { color: #E2E8F0; font-weight: 500; }
-.proj-info-table .td-badge {
-    display: inline-block; background: #1E3A5F; color: #60A5FA;
-    border: 1px solid #2563EB44; border-radius: 6px; padding: 0.15rem 0.6rem;
-    font-size: 0.75rem; font-weight: 600; font-family: 'JetBrains Mono', monospace;
+/* ══ FILE UPLOADER ══ */
+[data-testid="stFileUploader"] {
+    background: #161B22 !important;
+    border: 1.5px dashed #21262D !important;
+    border-radius: 10px !important; padding: 1rem !important;
 }
+[data-testid="stFileUploader"]:hover { border-color: #2563EB !important; }
+.stSpinner > div { border-top-color: #3B82F6 !important; }
 
-/* ══ OBJECTIVES TIMELINE ══ */
-.obj-timeline { display: flex; flex-direction: column; gap: 0; }
-.obj-step { display: flex; gap: 12px; align-items: flex-start; }
-.obj-line { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
-.obj-dot {
-    width: 28px; height: 28px; border-radius: 8px;
-    background: linear-gradient(135deg, #1D4ED8, #3B82F6);
-    color: #fff; font-size: 0.68rem; font-weight: 800;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; margin-top: 1px;
-    box-shadow: 0 0 10px rgba(37,99,235,0.4);
+/* ══ FOOTER ══ */
+.footer {
+    text-align: center; padding: 1.25rem; color: #374151; font-size: 0.73rem;
+    border-top: 1px solid #21262D; margin-top: 1.5rem;
     font-family: 'JetBrains Mono', monospace;
 }
-.obj-connector {
-    width: 2px; background: linear-gradient(to bottom, #2563EB44, #21262D);
-    flex: 1; min-height: 22px; margin-top: 3px;
-}
-.obj-content { padding-bottom: 1rem; padding-top: 2px; }
-.obj-content .o-title { font-size: 0.845rem; font-weight: 600; color: #E2E8F0; }
-.obj-content .o-desc  { font-size: 0.775rem; color: #64748B; margin-top: 3px; line-height: 1.5; }
+</style>
+""", unsafe_allow_html=True)
 
-/* ══ METHODOLOGY TIMELINE ══ */
-.method-timeline { display: flex; flex-direction: column; gap: 0; }
-.method-step { display: flex; gap: 12px; align-items: flex-start; }
-.method-line { display: flex; flex-direction: column; align-items: center; }
-.method-dot {
-    width: 11px; height: 11px; border-radius: 50%;
-    background: #2563EB; flex-shrink: 0; margin-top: 4px;
-    box-shadow: 0 0 8px rgba(37,99,235,0.5);
-}
-.method-connector {
-    width: 2px; background: linear-gradient(to bottom, #2563EB44, #21262D);
-    flex: 1; min-height: 28px; margin-top: 3px;
-}
-.method-content { padding-bottom: 1.1rem; }
-.method-content .m-title { font-size: 0.845rem; font-weight: 600; color: #E2E8F0; }
-.method-content .m-desc  { font-size: 0.775rem; color: #64748B; margin-top: 2px; line-height: 1.5; }
 
-/* ══ TEAM ══ */
-.guide-card {
-    background: #1E3A5F22; border: 1.5px solid #2563EB44;
-    border-radius: 11px; padding: 1rem 1.1rem;
-    display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
-    box-shadow: 0 0 16px rgba(37,99,235,0.1);
-}
-.guide-avatar {
-    width: 44px; height: 44px; border-radius: 11px;
-    background: linear-gradient(135deg, #0F3D99, #1D4ED8);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.1rem; color: white; flex-shrink: 0;
-    box-shadow: 0 0 12px rgba(29,78,216,0.4);
-}
-.guide-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #60A5FA; }
-.guide-name  { font-size: 0.875rem; font-weight: 700; color: #F1F5F9; margin-top: 1px; }
-.g
+# ══════════════════════════════════════════════════════════════
+#  VERSION-SAFE IMAGE HELPER
+#  Newer Streamlit versions use `use_container_width`; older
+#  versions only support `use_column_width`. This wrapper tries
+#  the modern kwarg first and falls back automatically so the
+#  app doesn't crash regardless of the Streamlit version that
+#  ends up installed on the deployment host.
+# ══════════════════════════════════════════════════════════════
+def show_image(data, caption=None):
+    try:
+        st.image(data, caption=caption, use_container_width=True)
+    except TypeError:
+        st.image(data, caption=caption, use_column_width=True)
+
+
+# ══════════════════════════════════════════════════════════════
+#  LOAD MODEL
+# ══════════════════════════════════════════════════════════════
+@st.cache_resource
+def load_model():
+    return tf.keras.models.load_model(MODEL_PATH)
+
+
+# ══════════════════════════════════════════════════════════════
+#  PREPROCESS
+# ══════════════════════════════════════════════════════════════
+def preprocess(uploaded_file) -> np.ndarray:
+    raw_bytes = uploaded_file.getvalue()
+    img = tf.image.decode_png(raw_bytes, channels=1)
+    img = tf.image.resize(img, [IMG_H, IMG_W])
+    img = tf.cast(img, tf.float32) / 255.0
+    img = tf.expand_dims(img, axis=0)
+    return img.numpy()
+
+
+# ══════════════════════════════════════════════════════════════
+#  SIDEBAR
+# ══════════════════════════════════════════════════════════════
+with st.sidebar:
+    st.markdown("""
+    <div class='sb-logo'>
+        <div class='sb-logo-icon'>⚙️</div>
+        <div>
+            <div class='sb-logo-text'>Machine Fault Diagnosis</div>
+            <div class='sb-logo-sub'>CNN · Deep Learning System</div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("<div class='sb-nav-label'>Fault Reference</div>", unsafe_allow_html=True)
+    for cls in CLASS_NAMES:
+        severity, sev_color = CLASS_SEVERITY[cls]
+        icon = CLASS_ICONS[cls]
+        st.markdown(
+            "<div class='sb-fault-item'>"
+            f"<span class='sb-fault-icon'>{icon}</span>"
+            "<div>"
+            f"<div class='sb-fault-name'>{cls}</div>"
+            f"<div class='sb-fault-sev' style='color:{sev_color}'>{severity} SEVERITY</div>"
+            "</div>"
+            "</div>",
+            unsafe_allow_html=True
+        )
+
+    st.markdown("""
+    <div class='sb-footer'>
+        Machine Fault Diagnosis System<br>
+        CNN-based Vibration Signal Analysis
+    </div>
+    """, unsafe_allow_html=True)
+
+
+# ══════════════════════════════════════════════════════════════
+#  MAIN PAGE: FAULT DIAGNOSIS
+# ══════════════════════════════════════════════════════════════
+st.markdown("""
+<div class='topbar'>
+    <div class='topbar-left'>
+        <h1>Machine Fault Diagnosis System</h1>
+        <p>CNN-based vibration signal analysis for predictive maintenance and condition monitoring.</p>
+    </div>
+    <div class='topbar-right'>
+        <span class='topbar-badge green'>🟢 System Ready</span>
+        <span class='topbar-badge'>⚙️ CNN Model</span>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+with st.spinner("Initialising model..."):
+    model = load_model()
+
+st.markdown(
+    "<div class='status-bar'>"
+    "<div class='status-dot'></div>"
+    "<span>Model loaded successfully</span>"
+    "<span class='status-divider'>|</span>"
+    f"<span>Input: {model.input_shape}</span>"
+    "<span class='status-divider'>|</span>"
+    f"<span>Parameters: {model.count_params():,}</span>"
+    "<span class='status-divider'>|</span>"
+    f"<span>Classes: {len(CLASS_NAMES)}</span>"
+    "<span class='status-divider'>|</span>"
+    "<span>✅ Ready for inference</span>"
+    "</div>",
+    unsafe_allow_html=True
+)
+
+st.markdown("""
+<div class='card'>
+    <div class='card-header-lg'><span style='font-size:1rem'>📤</span>&nbsp; Upload Vibration Signal Image</div>
+</div>
+""", unsafe_allow_html=True)
+
+uploaded = st.file_uploader(
+    "Upload a vibration signal graph image (PNG / JPG) from CH1, CH2, or CH3",
+    type=["png", "jpg", "jpeg"],
+    label_visibility="visible"
+)
+
+# ── EMPTY STATE ───────────────────────────────────────────
+if uploaded is None:
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class='step-grid-wrapper'>
+        <div class='step-card'>
+            <div class='step-num'>1</div>
+            <div class='step-title'>Upload Image</div>
+            <div class='step-desc'>Select a PNG/JPG vibration signal graph from sensor channels CH1, CH2, or CH3.</div>
+        </div>
+        <div class='step-card'>
+            <div class='step-num'>2</div>
+            <div class='step-title'>CNN Analysis</div>
+            <div class='step-desc'>The deep learning model automatically extracts fault features from the signal image.</div>
+        </div>
+        <div class='step-card'>
+            <div class='step-num'>3</div>
+            <div class='step-title'>Get Diagnosis</div>
+            <div class='step-desc'>View fault class, confidence score, engineering explanation, and recommended action.</div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class='card'>
+        <div class='card-header-lg'><span style='font-size:1rem'>📋</span>&nbsp; Detectable Fault Classes</div>
+    """, unsafe_allow_html=True)
+
+    fault_html = "<div class='fault-grid-wrapper'>"
+    for cls in CLASS_NAMES:
+        severity, sev_color = CLASS_SEVERITY[cls]
+        icon = CLASS_ICONS[cls]
+        fault_html += (
+            "<div class='fault-grid-item'>"
+            f"<div class='fault-grid-icon-box'>{icon}</div>"
+            f"<div class='fault-grid-name'>{cls}</div>"
+            f"<span class='fault-grid-sev' style='background:{sev_color}18;color:{sev_color};border:1px solid {sev_color}44'>"
+            f"{severity}"
+            "</span>"
+            "</div>"
+        )
+    fault_html += "</div>"
+    st.markdown(fault_html, unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
+
+# ── PREDICTION STATE ──────────────────────────────────────
+else:
+    with st.spinner("🔍 Analysing vibration signal..."):
+        t0      = time.time()
+        arr     = preprocess(uploaded)
+        preds   = model.predict(arr, verbose=0)[0]
+        elapsed = time.time() - t0
+
+    pred_idx            = int(np.argmax(preds))
+    pred_class          = CLASS_NAMES[pred_idx]
+    confidence          = float(preds[pred_idx]) * 100
+    severity, sev_color = CLASS_SEVERITY[pred_class]
+    icon                = CLASS_ICONS[pred_class]
+
+    st.markdown(
+        "<div class='chip-row'>"
+        f"<span class='chip'><span class='chip-icon'>📁</span>{uploaded.name}</span>"
+        f"<span class='chip'><span class='chip-icon'>⏱️</span>{elapsed*1000:.0f} ms inference</span>"
+        f"<span class='chip'><span class='chip-icon'>📐</span>{IMG_W} × {IMG_H} px input</span>"
+        "<span class='chip'><span class='chip-icon'>🧠</span>CNN · Softmax output</span>"
+        "</div>",
+        unsafe_allow_html=True
+    )
+
+    left, right = st.columns([1.1, 1], gap="large")
+
+    with left:
+        st.markdown("""
+        <div class='card'>
+            <div class='card-header'><span class='card-header-icon'>🖼️</span> Uploaded Vibration Signal</div>
+        """, unsafe_allow_html=True)
+        show_image(
+            uploaded.getvalue(),
+            caption=f"{uploaded.name}  |  Resized to {IMG_W}×{IMG_H} for inference"
+        )
+        st.markdown("</div>", unsafe_allow_html=True)
+
+    with right:
+        st.markdown(
+            "<div class='card' style='height:100%;display:flex;flex-direction:column;'>"
+            "<div class='card-header'><span class='card-header-icon'>🔍</span> Diagnosis Result</div>"
+            f"<div class='result-card' style='border-color:{sev_color};background:{sev_color}0D;color:{sev_color};flex:1;'>"
+            f"<span class='result-icon'>{icon}</span>"
+            "<div class='result-eyebrow'>Detected Fault Condition</div>"
+            f"<div class='result-class' style='color:{sev_color}'>{pred_class}</div>"
+            f"<div class='result-conf' style='color:{sev_color}'>{confidence:.1f}%</div>"
+            "<div class='result-conf-sub'>Model Confidence Score</div>"
+            f"<div class='sev-pill' style='background:{sev_color}18;color:{sev_color};border-color:{sev_color}55'>"
+            f"{severity} SEVERITY"
+            "</div>"
+            "</div>"
+            "</div>",
+            unsafe_allow_html=True
+        )
+
+    st.markdown(
+        "<div class='card'>"
+        "<div class='card-header'><span class='card-header-icon'>📖</span> Fault Explanation &amp; Recommended Action</div>"
+        f"<span class='box-label blue'>Diagnosis — {icon} {pred_class}</span>"
+        f"<div class='info-box'>{CLASS_INFO[pred_class]}</div>"
+        "<span class='box-label green'>Recommended Action</span>"
+        f"<div class='action-box'>{CLASS_ACTION[pred_class]}</div>"
+        "</div>",
+        unsafe_allow_html=True
+    )
+
+    with st.expander("🔬 Technical Details — Raw Prediction Data"):
+        d1, d2 = st.columns(2)
+        with d1:
+            st.markdown("**Preprocessed Tensor Info**")
+            st.code(
+                f"Shape      : {arr.shape}\n"
+                f"Dtype      : {arr.dtype}\n"
+                f"Pixel min  : {arr.min():.4f}\n"
+                f"Pixel max  : {arr.max():.4f}\n"
+                f"Pixel mean : {arr.mean():.4f}\n"
+                f"Inference  : {elapsed*1000:.1f} ms"
+            )
+        with d2:
+            st.markdown("**Raw Softmax Probabilities**")
+            for cls, p in zip(CLASS_NAMES, preds):
+                bar = "█" * int(p * 28)
+                st.code(f"{cls:<22}: {p*100:>6.3f}%  {bar}")
+
+st.markdown("""
+<div class='footer'>
+    Machine Fault Diagnosis System &nbsp;·&nbsp; Built with TensorFlow &amp; Streamlit
+</div>
+""", unsafe_allow_html=True)
