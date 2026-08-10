@@ -106,13 +106,11 @@ html, body, [class*="css"], .stApp {
     font-family: 'Inter', sans-serif !important;
     background: #0D1117 !important;
     color: #E2E8F0 !important;
-    overflow-x: hidden !important;
 }
 
 .main .block-container {
     padding: 1.5rem 2rem 3rem !important;
     max-width: 1400px !important;
-    overflow-x: hidden !important;
 }
 
 /* ══ SIDEBAR ══ */
@@ -177,11 +175,6 @@ html, body, [class*="css"], .stApp {
     content: '⚙'; position: absolute; right: 1.75rem; top: 50%;
     transform: translateY(-50%); font-size: 7rem; opacity: 0.06;
     line-height: 1; pointer-events: none;
-    z-index: 0;
-}
-.topbar-left, .topbar-right {
-    position: relative;
-    z-index: 1;
 }
 .topbar-left h1 {
     font-size: 1.45rem; font-weight: 800; color: #FFFFFF;
@@ -197,7 +190,6 @@ html, body, [class*="css"], .stApp {
     font-size: 0.7rem; font-weight: 600;
     background: rgba(255,255,255,0.12); color: #FFFFFF;
     border: 1px solid rgba(255,255,255,0.22);
-    white-space: nowrap;
 }
 .topbar-badge.green {
     background: rgba(74,222,128,0.18); color: #4ADE80;
@@ -307,7 +299,6 @@ html, body, [class*="css"], .stApp {
     border-radius: 11px; padding: 1.1rem 0.85rem; text-align: center;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     height: 100%; transition: border-color 0.15s, transform 0.15s;
-    min-width: 0;
 }
 .fault-grid-item:hover { border-color: #2563EB; transform: translateY(-2px); }
 .fault-grid-icon-box {
@@ -333,7 +324,7 @@ html, body, [class*="css"], .stApp {
     background: #161B22; border: 1px solid #21262D;
     border-radius: 11px; padding: 1.4rem 1.1rem; text-align: center;
     display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-    height: 100%; min-width: 0;
+    height: 100%;
 }
 .step-num {
     width: 38px; height: 38px; border-radius: 11px;
@@ -374,52 +365,6 @@ pre, code {
     text-align: center; padding: 1.25rem; color: #374151; font-size: 0.73rem;
     border-top: 1px solid #21262D; margin-top: 1.5rem;
     font-family: 'JetBrains Mono', monospace;
-}
-
-/* ══════════════════════════════════════════════════════════
-   MOBILE RESPONSIVE FIXES
-   - topbar: stack title above badges instead of clipping
-   - fault grid: 5 cols -> 2 cols so cards don't get squeezed off-screen
-   - step grid: 3 cols -> 1 col so cards stack cleanly
-   ══════════════════════════════════════════════════════════ */
-@media (max-width: 768px) {
-    .main .block-container {
-        padding: 1rem 0.85rem 2rem !important;
-    }
-
-    .topbar {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 1.35rem 1.1rem;
-    }
-    .topbar::before {
-        font-size: 4.5rem;
-        right: 0.75rem;
-    }
-    .topbar-left h1 { font-size: 1.15rem; }
-    .topbar-left p  { font-size: 0.8rem; }
-    .topbar-right { width: 100%; }
-
-    .status-bar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.3rem;
-    }
-    .status-divider { display: none; }
-
-    .fault-grid-wrapper {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .step-grid-wrapper {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 420px) {
-    .fault-grid-wrapper {
-        grid-template-columns: 1fr;
-    }
 }
 </style>
 """, unsafe_allow_html=True)
